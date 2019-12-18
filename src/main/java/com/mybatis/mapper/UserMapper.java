@@ -2,6 +2,9 @@ package com.mybatis.mapper;
 
 import com.mybatis.model.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ import java.util.List;
  * @Description:
  */
 @Mapper
-public interface UserDao {
+public interface UserMapper {
 	int insertUser(User user);
 
 	User getUserById(Integer uid);
@@ -21,5 +24,8 @@ public interface UserDao {
 	int deleteUserById(Integer uid);
 
 	List<User> getAllUser();
+
+	@Select("select * from t_user where ${col} = #{value}")
+	User findByCol(@Param("col")String col, @Param("value") String value);
 
 }

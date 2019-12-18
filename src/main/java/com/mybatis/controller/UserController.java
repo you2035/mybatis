@@ -1,6 +1,6 @@
 package com.mybatis.controller;
 
-import com.mybatis.mapper.UserDao;
+import com.mybatis.mapper.UserMapper;
 import com.mybatis.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 	@Resource
-	private UserDao userDao;
+	private UserMapper userDao;
 
 	@RequestMapping(value = "getUser")
 	@ResponseBody
@@ -32,5 +32,12 @@ public class UserController {
 	public List<User> getAllUser(){
 		List<User> userList = userDao.getAllUser();
 		return userList;
+	}
+
+	@RequestMapping("findByCol")
+	@ResponseBody
+	public User findByCol(){
+		User user = userDao.findByCol("id","2");
+		return  user;
 	}
 }
